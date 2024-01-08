@@ -5,6 +5,7 @@ import React from 'react';
 export interface MenuItem {
   name: string;
   price: number;
+  id: number;
 }
 
 type MenuItems = Array<MenuItem>;
