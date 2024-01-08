@@ -1,15 +1,13 @@
+import clsx from 'clsx';
 import {
   Button,
-  ComboBox,
   Dialog,
   Heading,
-  Input,
   Modal,
   ModalOverlay,
 } from 'react-aria-components';
-import KeyboardModalTrigger from './KeyboardTrigger';
-import clsx from 'clsx';
 import { AppReduceAction, useAppDispatch } from '../context/AppContext';
+import KeyboardModalTrigger from './KeyboardTrigger';
 
 export interface Command {
   name: string;
@@ -31,8 +29,8 @@ export default function ActionsPopup(props: ActionsPopupProps) {
             clsx(
               'fixed inset-0 z-10 flex min-h-full items-center justify-center overflow-y-auto',
               'bg-black/25 p-4 text-center backdrop-blur',
-              isEntering && 'animate-in fade-in duration-150 ease-out',
-              isExiting && 'animate-out fade-out duration-100 ease-in',
+              isEntering && 'duration-150 ease-out animate-in fade-in',
+              isExiting && 'duration-100 ease-in animate-out fade-out',
             )
           }
         >
@@ -40,9 +38,9 @@ export default function ActionsPopup(props: ActionsPopupProps) {
             isDismissable
             className={({ isEntering, isExiting }) =>
               clsx(
-                'w-full max-w-md overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl',
-                isEntering && 'animate-in zoom-in-95 duration-150 ease-out',
-                isExiting && 'animate-out zoom-out-95 duration-100 ease-in',
+                'w-full max-w-md overflow-hidden rounded-xl bg-white p-6 text-left align-middle shadow-xl',
+                isEntering && 'duration-150 ease-out animate-in zoom-in-95',
+                isExiting && 'duration-100 ease-in animate-out zoom-out-95',
               )
             }
           >
@@ -53,7 +51,7 @@ export default function ActionsPopup(props: ActionsPopupProps) {
               >
                 Command palette
               </Heading>
-              <div className="mt-4 grid grid-flow-col items-center justify-center gap-3">
+              <div className="mt-4 grid grid-cols-2 items-center justify-center gap-3">
                 {props.commands.map(c => (
                   <Button
                     onPress={() => {

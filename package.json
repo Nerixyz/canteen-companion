@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "format": "prettier -w .",
     "check-formatting": "prettier -c .",
-    "lint": "biome check ."
+    "lint": "biome check .",
+    "lint-fix": "biome check --apply ."
   },
   "dependencies": {
     "@fontsource/inter": "^5.0.16",
