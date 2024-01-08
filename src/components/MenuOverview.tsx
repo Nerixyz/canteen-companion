@@ -75,11 +75,11 @@ function MenuItem({ item }: { item: MenuItem }) {
   const handleClick = () => {
     history(`/${item.id}`)
   };
-  
+
   return (
     <div className="border-b-4 border-blue-500 px-4 py-2 shadow-md">
       <div className="flex w-full justify-center">
-        <CakeIcon className="m-2 h-20 w-20 rounded-md bg-slate-100 p-4" />
+        <CakeIcon className="m-2 h-20 w-20 rounded-md bg-slate-100 p-4" onClick={handleClick}/>
       </div>
       <h5>{item.name}</h5>
       <div>{item.price}</div>
