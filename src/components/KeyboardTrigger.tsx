@@ -4,7 +4,7 @@ import { ModalContext } from 'react-aria-components';
 interface KeyboardModalTriggerProps {
   keyboardShortcut: string;
   ctrl?: boolean;
-  children: React.ReactNode;
+  children: (p: { close: () => void }) => React.ReactNode;
 }
 
 export default function KeyboardModalTrigger(props: KeyboardModalTriggerProps) {
@@ -23,7 +23,7 @@ export default function KeyboardModalTrigger(props: KeyboardModalTriggerProps) {
 
   return (
     <ModalContext.Provider value={{ isOpen, onOpenChange: setOpen }}>
-      {props.children}
+      {props.children({ close: () => setOpen(false) })}
     </ModalContext.Provider>
   );
 }

@@ -41,7 +41,15 @@ const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <AppProvider>
-      <ActionsPopup commands={[]} />
+      <ActionsPopup
+        commands={[
+          {
+            name: 'Set User',
+            action: { type: 'set-user', user: { name: 'Max Mustermann' } },
+          },
+          { name: 'Clear User', action: { type: 'set-user', user: null } },
+        ]}
+      />
       <RouterProvider router={router} />
     </AppProvider>
   </React.StrictMode>,
