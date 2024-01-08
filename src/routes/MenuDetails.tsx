@@ -2,11 +2,17 @@ import { useParams } from 'react-router-dom';
 import { getMenuById } from '../data/menu';
 import { CakeIcon } from '@heroicons/react/24/outline';
 import { Button } from 'react-aria-components';
+import React, { useState } from 'react';
 
 export default function MenuDetails() {
   const params = useParams();
   const item = getMenuById(Number(params.id));
+  const [feedback, setFeedback] = useState('');
+  const handleFeedback = () => {
+  
+    setFeedback('Vielen Dank für Ihr Feedback!');
 
+  }; 
   return (
     <div className="flex w-full flex-col justify-center">
       <div className="flex w-full justify-center">
