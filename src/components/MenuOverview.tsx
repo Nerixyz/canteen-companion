@@ -1,6 +1,7 @@
 import { CakeIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export interface MenuItem {
   name: string;
@@ -81,10 +82,16 @@ function MenuItem({ item }: { item: MenuItem }) {
 }
 
 function FocusedMenuItem({ item }: { item: MenuItem }) {
+  const history = useNavigate();
+
+  const handleClick = () => {
+    history(`/${item.id}`)
+  };
+  
   return (
     <div className="border-b-4 border-blue-500 bg-yellow-100 bg-sparkles-pattern bg-[length:5rem] bg-repeat px-8 py-6 shadow-md">
       <div className="flex w-full justify-center">
-        <CakeIcon className="m-2 h-20 w-20 rounded-md bg-white p-4 shadow-md" />
+        <CakeIcon className="m-2 h-20 w-20 rounded-md bg-white p-4 shadow-md" onClick={handleClick} />
       </div>
       <h5>{item.name}</h5>
       <div>{item.price}</div>
