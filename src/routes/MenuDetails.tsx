@@ -17,6 +17,9 @@ export default function MenuDetails() {
       <div className="flex w-full justify-center"> 
         <p className="pl-6 pt-5 font-bold"> {item.price} €</p>
       </div>
+      <div className="flex w-full justify-center">
+        <p className="pl-6 pt-10 font-bold"> Zutaten:  {item.ingredients.map(i => <span className="font-normal m-0.5"> {i}, </span> )}</p>
+      </div>
       
     </div>
     
