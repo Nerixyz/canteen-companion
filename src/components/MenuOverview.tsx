@@ -47,7 +47,7 @@ function formatWeekday(lang: 'en' | 'de', day: number) {
 
 export default function MenuOverview({ items }: { items: Menu }) {
   return (
-    <main className="grid h-full grid-flow-row grid-cols-[auto,minmax(0,_1fr)] gap-16 overflow-auto px-10 py-5">
+    <main className="grid h-full grid-flow-row grid-cols-[auto,minmax(0,_1fr)] gap-16 px-10 py-5">
       {items.map((it, day) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: The length is static
         <React.Fragment key={day}>
@@ -73,13 +73,16 @@ function MenuItem({ item }: { item: MenuItem }) {
   const history = useNavigate();
 
   const handleClick = () => {
-    history(`/${item.id}`)
+    history(`/${item.id}`);
   };
 
   return (
     <div className="border-b-4 border-blue-500 px-4 py-2 shadow-md">
       <div className="flex w-full justify-center">
-        <CakeIcon className="m-2 h-20 w-20 rounded-md bg-slate-100 p-4" onClick={handleClick}/>
+        <CakeIcon
+          className="m-2 h-20 w-20 rounded-md bg-slate-100 p-4"
+          onClick={handleClick}
+        />
       </div>
       <h5>{item.name}</h5>
       <div>{item.price}</div>
@@ -91,13 +94,16 @@ function FocusedMenuItem({ item }: { item: MenuItem }) {
   const history = useNavigate();
 
   const handleClick = () => {
-    history(`/${item.id}`)
+    history(`/${item.id}`);
   };
-  
+
   return (
     <div className="border-b-4 border-blue-500 bg-yellow-100 bg-sparkles-pattern bg-[length:5rem] bg-repeat px-8 py-6 shadow-md">
       <div className="flex w-full justify-center">
-        <CakeIcon className="m-2 h-20 w-20 rounded-md bg-white p-4 shadow-md" onClick={handleClick} />
+        <CakeIcon
+          className="m-2 h-20 w-20 rounded-md bg-white p-4 shadow-md"
+          onClick={handleClick}
+        />
       </div>
       <h5>{item.name}</h5>
       <div>{item.price}</div>
