@@ -7,6 +7,7 @@ import { RouterProvider, createHashRouter } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import './index.css';
 import ActionsPopup from './components/ActionsPopup';
+import { Footer } from './components/Footer';
 
 const Index = React.lazy(() => import('./routes/Index'));
 const MenuDetails = React.lazy(() => import('./routes/MenuDetails'));
@@ -51,6 +52,7 @@ root.render(
         ]}
       />
       <RouterProvider router={router} />
+      <Footer />
     </AppProvider>
   </React.StrictMode>,
 );
