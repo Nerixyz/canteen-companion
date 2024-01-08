@@ -4,7 +4,10 @@ import React from 'react';
 
 export interface MenuItem {
   name: string;
+  germanName: string;
   price: number;
+  ingredients: string[];
+  germanIngredients: string[];
   id: number;
 }
 
