@@ -70,6 +70,12 @@ export default function MenuOverview({ items }: { items: Menu }) {
 }
 
 function MenuItem({ item }: { item: MenuItem }) {
+  const history = useNavigate();
+
+  const handleClick = () => {
+    history(`/${item.id}`)
+  };
+  
   return (
     <div className="border-b-4 border-blue-500 px-4 py-2 shadow-md">
       <div className="flex w-full justify-center">
