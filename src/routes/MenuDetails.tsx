@@ -1,6 +1,8 @@
 import {
   CakeIcon,
   ChevronLeftIcon,
+  HandThumbDownIcon,
+  HandThumbUpIcon,
   StarIcon,
 } from '@heroicons/react/24/outline';
 import { StarIcon as StarIconFilled } from '@heroicons/react/24/solid';
@@ -21,6 +23,7 @@ const trStrings = {
   ],
   yes: ['Ja', 'Yes'],
   no: ['Nein', 'No'],
+  thanks: ['Danke!', 'Thank You!'],
 } as const;
 
 function trIt(it: keyof typeof trStrings, lang: 'de' | 'en') {
@@ -37,7 +40,7 @@ export default function MenuDetails() {
   const app = useApp();
   const tr = (it: keyof typeof trStrings) => trIt(it, app.language);
   const cf = app.language === 'de' ? dcf : ecf;
-  const nav = useNavigate();
+  const [done, setDone] = useState(false);
 
   return (
     <>
@@ -71,13 +74,27 @@ export default function MenuDetails() {
             </div>
           </div>
           <div className="flex flex-col items-center gap-1">
-            {tr('wasOkay')}
-            <div className="flex gap-4">
-              <Button className="ml-1 hover:text-yellow-500">
-                {tr('yes')}
-              </Button>
-              <Button className="ml-1 hover:text-yellow-500">{tr('no')}</Button>
-            </div>
+            {done ? (
+              <>{tr('thanks')}</>
+            ) : (
+              <>
+                {tr('wasOkay')}
+                <div className="flex gap-4">
+                  <Button
+                    className="ml-1 hover:text-yellow-500"
+                    onPress={() => setDone(true)}
+                  >
+                    <HandThumbUpIcon className="h-6 w-6" />
+                  </Button>
+                  <Button
+                    className="ml-1 hover:text-yellow-500"
+                    onPress={() => setDone(true)}
+                  >
+                    <HandThumbDownIcon className="h-6 w-6" />
+                  </Button>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="absolute left-3 top-3">
