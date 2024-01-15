@@ -33,7 +33,7 @@ function formatWeekday(lang: 'en' | 'de', day: number) {
       'Friday',
       'Saturday',
       'Sunday',
-    ][day];
+    ][day % 7];
   }
   return [
     'Montag',
@@ -43,7 +43,20 @@ function formatWeekday(lang: 'en' | 'de', day: number) {
     'Freitag',
     'Samstag',
     'Sonntag',
-  ][day];
+  ][day % 7];
+}
+
+function offsetMap<T, U>(
+  arr: T[],
+  offset: number,
+  fn: (it: T, day: number) => U,
+) {
+  const mapped = [];
+  for (let i = 0; i < arr.length; i++) {
+    const day = (i + offset) % arr.length;
+    mapped.push(fn(arr[day], day));
+  }
+  return mapped;
 }
 
 const currencyOpts = { currency: 'EUR', style: 'currency' };
@@ -52,12 +65,12 @@ const ecf = new Intl.NumberFormat('en-GB', currencyOpts);
 
 export default function MenuOverview({ items }: { items: Menu }) {
   const app = useApp();
+  const offset = new Date().getDay();
   return (
     <>
       <main className="grid grid-flow-row grid-cols-[auto,minmax(0,_1fr)] gap-16 px-10 py-5">
-        {items.map((it, day) =>
+        {offsetMap(items, offset, (it, day) =>
           it.length === 0 ? null : (
-            // biome-ignore lint/suspicious/noArrayIndexKey: The length is static
             <React.Fragment key={day}>
               <h3 className="pl-6 pt-4 text-lg font-semibold">
                 {formatWeekday(app.language, day)}
