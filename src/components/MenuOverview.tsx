@@ -46,15 +46,26 @@ function formatWeekday(lang: 'en' | 'de', day: number) {
   ][day % 7];
 }
 
+const formatters = {
+  en: new Intl.DateTimeFormat('en-GB', { dateStyle: 'short' }),
+  de: new Intl.DateTimeFormat('de-DE', { dateStyle: 'short' }),
+};
+
+function formatDay(lang: 'en' | 'de', dayOffset: number) {
+  const d = new Date();
+  d.setDate(d.getDate() + dayOffset);
+  return formatters[lang].format(d);
+}
+
 function offsetMap<T, U>(
   arr: T[],
   offset: number,
-  fn: (it: T, day: number) => U,
+  fn: (it: T, day: number, index: number) => U,
 ) {
   const mapped = [];
   for (let i = 0; i < arr.length; i++) {
     const day = (i + offset) % arr.length;
-    mapped.push(fn(arr[day], day));
+    mapped.push(fn(arr[day], day, i));
   }
   return mapped;
 }
@@ -69,11 +80,12 @@ export default function MenuOverview({ items }: { items: Menu }) {
   return (
     <>
       <main className="grid grid-flow-row grid-cols-[auto,minmax(0,_1fr)] gap-16 px-10 py-5">
-        {offsetMap(items, offset, (it, day) =>
+        {offsetMap(items, offset, (it, day, i) =>
           it.length === 0 ? null : (
             <React.Fragment key={day}>
               <h3 className="pl-6 pt-4 text-lg font-semibold">
                 {formatWeekday(app.language, day)}
+                <p className="font-normal">{formatDay(app.language, i)}</p>
               </h3>
               <div className="flex items-center gap-8">
                 {it.map((item, i) => {
