@@ -11,7 +11,7 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider, createHashRouter } from 'react-router-dom';
 import ActionsPopup from './components/ActionsPopup';
 import { Footer } from './components/Footer';
-import { AppProvider, useApp } from './context/AppContext';
+import { AppProvider, useApp, useAppDispatch } from './context/AppContext';
 import './index.css';
 
 const Index = React.lazy(() => import('./routes/Index'));
@@ -54,6 +54,7 @@ root.render(
 
 function Root() {
   const app = useApp();
+  const appDispatch = useAppDispatch();
   const isEmbedded = location.search.startsWith('?embedded');
   const aRef = useRef<null | HTMLIFrameElement>(null);
   const bRef = useRef<null | HTMLIFrameElement>(null);
@@ -78,6 +79,16 @@ function Root() {
       }
     };
 
+  useEffect(() => {
+    const l = (m: MessageEvent) => {
+      if (typeof m.data === 'object' && m.data.ev === 'unset-user') {
+        appDispatch({ type: 'set-split', split: false });
+      }
+    };
+    addEventListener('message', l);
+    return () => removeEventListener('message', l);
+  });
+
   return (
     <>
       {isEmbedded ? null : (
@@ -85,7 +96,10 @@ function Root() {
           commands={[
             {
               name: 'Set User',
-              action: { type: 'set-user', user: { name: 'Max Mustermann' } },
+              action: () => ({
+                type: 'set-user',
+                user: { name: 'Max Mustermann', loginAt: new Date() },
+              }),
             },
             { name: 'Clear User', action: { type: 'set-user', user: null } },
             { name: 'Split', action: { type: 'set-split', split: true } },

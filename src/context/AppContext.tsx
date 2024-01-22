@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
 export interface AppState {
-  user: { name: string } | null;
+  user: { name: string; loginAt: Date } | null;
   language: 'de' | 'en';
   isSplit: boolean;
 }
@@ -21,7 +21,7 @@ function initialState(): AppState {
       lang = 'en';
     }
     return {
-      user: { name: 'Max Mustermann' },
+      user: { name: 'Max Mustermann', loginAt: new Date() },
       language: lang as 'en' | 'de',
       isSplit: false,
     };

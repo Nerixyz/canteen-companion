@@ -11,7 +11,7 @@ import KeyboardModalTrigger from './KeyboardTrigger';
 
 export interface Command {
   name: string;
-  action: AppReduceAction;
+  action: AppReduceAction | (() => AppReduceAction);
 }
 
 interface ActionsPopupProps {
@@ -55,7 +55,9 @@ export default function ActionsPopup(props: ActionsPopupProps) {
                 {props.commands.map(c => (
                   <Button
                     onPress={() => {
-                      dispatch(c.action);
+                      dispatch(
+                        typeof c.action === 'function' ? c.action() : c.action,
+                      );
                       close();
                     }}
                     className={clsx(
