@@ -12,7 +12,7 @@ import { Button } from 'react-aria-components';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import { useApp } from '../context/AppContext';
-import { getMenuById } from '../data/menu';
+import { getMenuById, imagePathForId } from '../data/menu';
 
 const trStrings = {
   ingr: ['Zutaten', 'Ingredients'],
@@ -51,8 +51,11 @@ export default function MenuDetails() {
             {app.language === 'de' ? item.germanName : item.name}
           </h3>
         </div>
-        <div className="mt-4 flex justify-center rounded-md bg-slate-50 p-6 shadow-md">
-          <CakeIcon className="h-auto w-80" />
+        <div className="mt-4 flex justify-center rounded-md bg-slate-50 p-8 shadow-md">
+          <div
+            className="h-80 w-80 rounded-md bg-cover bg-center shadow-md"
+            style={{ backgroundImage: `url('${imagePathForId(item.id)}')` }}
+          />
         </div>
         <div className="flex w-full justify-center">
           <p className="pl-6 pt-5 font-bold">{cf.format(item.price)}</p>

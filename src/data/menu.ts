@@ -154,3 +154,7 @@ export const menu: Menu = new Array(7)
 export function getMenuById(id: number) {
   return items[id];
 }
+
+export function imagePathForId(id: number) {
+  return `/res/m${id}.webp`;
+}
