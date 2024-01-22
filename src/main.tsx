@@ -81,6 +81,9 @@ function Root() {
 
   useEffect(() => {
     const l = (m: MessageEvent) => {
+      if (m.source === window) {
+        return;
+      }
       if (typeof m.data === 'object' && m.data.ev === 'unset-user') {
         appDispatch({ type: 'set-split', split: false });
       }

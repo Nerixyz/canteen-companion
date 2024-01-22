@@ -1,8 +1,8 @@
 import { ClockIcon, UserIcon } from '@heroicons/react/24/outline';
-import { useApp, useAppDispatch } from '../context/AppContext';
-import { useEffect, useState } from 'react';
-import { animationInterval } from '../data/animation';
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
+import { useApp, useAppDispatch } from '../context/AppContext';
+import { animationInterval } from '../data/animation';
 
 export default function NavBar() {
   const app = useApp();
@@ -33,7 +33,7 @@ export default function NavBar() {
     animationInterval(1000, ctrl.signal, update);
     update();
 
-    () => ctrl.abort();
+    return () => ctrl.abort();
   }, [app.user, dispatch]);
 
   if (!app.user) {

@@ -65,7 +65,7 @@ function offsetMap<T, U>(
 ) {
   const mapped = [];
   for (let i = 0; i < arr.length; i++) {
-    const day = (i + offset) % arr.length;
+    const day = (i + (offset - 1)) % arr.length;
     mapped.push(fn(arr[day], day, i));
   }
   return mapped;
